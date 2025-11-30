@@ -1,0 +1,100 @@
+openapi: 3.0.3
+info:
+  title: Physical AI Textbook RAG API
+  version: 1.0.0
+  description: Backend API for the RAG Chatbot.
+paths:
+  /chat/sessions:
+    post:
+      summary: Create a new chat session
+      operationId: createSession
+      responses:
+        '200':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+
+  /chat/sessions/{session_id}/history:
+    get:
+      summary: Get chat history for a session
+      operationId: getHistory
+      parameters:
+        - name: session_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Message'
+
+  /chat/message:
+    post:
+      summary: Send a message and get a streaming response
+      operationId: sendMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChatRequest'
+      responses:
+        '200':
+          description: Streaming event stream of the response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: "SSE events: data: {JSON}"
+
+components:
+  schemas:
+    Session:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        created_at:
+          type: string
+          format: date-time
+
+    Message:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        role:
+          type: string
+          enum: [user, assistant]
+        content:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+    ChatRequest:
+      type: object
+      required: [session_id, query]
+      properties:
+        session_id:
+          type: string
+          format: uuid
+        query:
+          type: string
+        current_page:
+          type: string
+          description: "URL path of the current page (e.g., /docs/intro)"
+        selected_text:
+          type: string
+          description: "Text selected by the user, if any"

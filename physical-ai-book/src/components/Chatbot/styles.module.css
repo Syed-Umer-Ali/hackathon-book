@@ -1,0 +1,139 @@
+.container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  font-family: var(--ifm-font-family-base);
+}
+
+.toggleButton {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: transform 0.2s;
+}
+
+.toggleButton:hover {
+  transform: scale(1.1);
+}
+
+.window {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 350px;
+  height: 500px;
+  background-color: var(--ifm-background-surface-color);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.header {
+  padding: 16px;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.message {
+  padding: 10px 14px;
+  border-radius: 12px;
+  max-width: 85%;
+  line-height: 1.4;
+  font-size: 14px;
+}
+
+.userMessage {
+  background-color: var(--ifm-color-primary-lightest);
+  color: var(--ifm-color-black);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.botMessage {
+  background-color: var(--ifm-color-emphasis-100);
+  color: var(--ifm-color-content);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.inputArea {
+  padding: 12px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  display: flex;
+  gap: 8px;
+}
+
+.input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 20px;
+  outline: none;
+  background: var(--ifm-background-color);
+  color: var(--ifm-color-content);
+}
+
+.input:focus {
+  border-color: var(--ifm-color-primary);
+}
+
+.sendButton {
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.sendButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.sourceList {
+    font-size: 0.8em;
+    margin-top: 5px;
+    color: var(--ifm-color-emphasis-600);
+    border-top: 1px solid var(--ifm-color-emphasis-200);
+    padding-top: 5px;
+}
+
+.sourceItem {
+    display: block;
+    font-style: italic;
+}
