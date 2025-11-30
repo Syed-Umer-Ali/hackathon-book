@@ -1,0 +1,9 @@
+Mujhe afsos hai, lekin main `/sp.plan` command ko bhi complete nahi kar sakta.
+
+Reason: `setup-plan.sh` script ko execute karne ke liye **Windows Subsystem for Linux (WSL) aur ek installed Linux distribution ki zaroorat hai**, jo aapke system par maujood nahi hai. Ye wahi masla hai jo `/sp.clarify` command ke dauran pesh aaya tha.
+
+`run_shell_command` tool `.sh` scripts ko directly PowerShell mein execute nahi kar sakta, aur scripts ko chalane ke liye `bash.exe` ki zaroorat hoti hai.
+
+Is command ko proceed karne ke liye, aapko WSL install karna hoga aur ek Linux distribution (maslan, Ubuntu) set up karni hogi.
+
+Ek baar jab WSL aur `bash.exe` available ho jaye, to aap `/sp.plan` command dobara chala sakte hain.

@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+openai
+qdrant-client
+asyncpg
+sqlalchemy
+python-dotenv
+pydantic-settings
+alembic

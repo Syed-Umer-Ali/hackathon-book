@@ -208,3 +208,9 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+---
+
+## Gemini Added Memories
+- The user's project currently has no secret keys or API keys that need to be set as environment variables for deployment, other than the standard `PORT`. This is because it uses an in-memory database and job queue. If the user decides to use a persistent database or cloud storage in the future, they will need to add environment variables for the connection strings and credentials.
+- **Feature 001-rag-chatbot Tech Stack**: Frontend: React/Docusaurus. Backend: FastAPI (Python 3.10+). Vector DB: Qdrant Cloud. Metadata DB: Neon Serverless Postgres. LLM: OpenAI.

@@ -1,11 +1,9 @@
 <!--
 Sync Impact Report:
-- Version change: N/A (initial creation) -> 0.1.0
-- Modified principles: None (initial creation)
-- Added sections:
-  - Project Purpose
-  - Technology Stack
-  - Hackathon Requirements & Deliverables
+- Version change: 0.1.0 -> 0.2.0
+- Modified principles:
+  - III. Integrated RAG Chatbot -> III. Context-Aware RAG Chatbot
+- Added sections: None
 - Removed sections: None
 - Templates requiring updates:
   - .specify/templates/plan-template.md: ⚠ pending
@@ -27,9 +25,9 @@ Rationale: To ensure high-quality, testable, and systematically developed compon
 The textbook content MUST be built and maintained using Docusaurus, deployed to GitHub Pages.
 Rationale: Docusaurus provides a robust, modern, and easily deployable framework for technical documentation, ensuring accessibility and maintainability of the textbook.
 
-### III. Integrated RAG Chatbot
-An Retrieval-Augmented Generation (RAG) chatbot MUST be integrated within the published book to answer user questions about its content, including text selection-based queries.
-Rationale: To provide an interactive and enhanced learning experience, enabling students to quickly find answers and deepen their understanding of the material directly within the textbook.
+### III. Context-Aware RAG Chatbot
+An Retrieval-Augmented Generation (RAG) chatbot MUST be integrated within the published book. This chatbot MUST be capable of answering user questions about the book's content, including text selection-based queries, and critically, MUST leverage the user's current viewing context (i.e., the specific chapter or lesson being read) to prioritize and tailor its responses.
+Rationale: To provide a highly interactive and personalized learning experience, enabling students to receive precise, contextually relevant answers directly related to their current reading material, thereby deepening their understanding and engagement.
 
 ### IV. Content Modularity & Comprehensiveness
 The textbook content MUST be logically structured into modules, chapters, and lessons, ensuring each section provides complete and accurate information for student comprehension.
@@ -59,4 +57,4 @@ This Constitution outlines the foundational principles and guidelines for the "P
 **Versioning Policy:** Semantic versioning will be applied to Constitution updates. MAJOR for backward incompatible changes, MINOR for significant additions, PATCH for minor clarifications.
 **Compliance Review:** All major project milestones and deliverables MUST undergo a review to ensure compliance with the principles outlined herein.
 
-**Version**: 0.1.0 | **Ratified**: 2025-11-29 | **Last Amended**: 2025-11-29
+**Version**: 0.2.0 | **Ratified**: 2025-11-29 | **Last Amended**: 2025-11-30
