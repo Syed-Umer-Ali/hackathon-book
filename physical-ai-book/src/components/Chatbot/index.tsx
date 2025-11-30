@@ -4,8 +4,8 @@ import { TextSelectionBlip } from './TextSelectionBlip';
 import styles from './styles.module.css';
 import { useLocation } from '@docusaurus/router';
 
-const API_URL = 'http://localhost:8000/chat/message';
-const HISTORY_URL = 'http://localhost:8000/chat/sessions';
+const API_URL = 'https://hackathon-book-o2g6.vercel.app/chat/message';
+const HISTORY_URL = 'https://hackathon-book-o2g6.vercel.app/chat/sessions';
 
 export default function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
