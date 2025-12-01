@@ -7,17 +7,17 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function Chatbot() {
   const { siteConfig } = useDocusaurusContext();
-  
+
   let baseUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
-  
+
   // Ensure protocol exists to avoid relative path interpretation
   if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
     baseUrl = `https://${baseUrl}`;
   }
-  
+
   // Remove trailing slash if present
   const cleanBaseUrl = baseUrl.replace(/\/$/, '');
-  
+
   const API_URL = `${cleanBaseUrl}/chat/message`;
   const HISTORY_URL = `${cleanBaseUrl}/chat/sessions`;
 
@@ -185,7 +185,18 @@ export default function Chatbot() {
       {!isOpen && (
         <>
           <button className={styles.toggleButton} onClick={() => setIsOpen(true)} aria-label="Open Chat">
-            💬
+            <div className={styles.techSphere}>
+              <div className={styles.robotFace}>
+                <div className={styles.eyesContainer}>
+                  <div className={styles.robotEye}></div>
+                  <div className={styles.robotEye}></div>
+                </div>
+                <div className={styles.robotMouth}></div>
+              </div>
+              <div className={styles.robotRing}></div>
+              <div className={styles.robotRingInner}></div>
+            </div>
+            <span className={styles.tooltip}>Ask AI</span>
           </button>
           <TextSelectionBlip position={blipPosition} onClick={handleBlipClick} />
         </>
