@@ -6,7 +6,10 @@ app = FastAPI(title="Physical AI Textbook RAG API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify the Docusaurus URL
+    allow_origins=[
+        "http://localhost:3000",
+        "https://learn-robotics-humanoid.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
