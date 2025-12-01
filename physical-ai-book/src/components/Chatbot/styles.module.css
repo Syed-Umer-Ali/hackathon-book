@@ -7,43 +7,188 @@
 }
 
 .toggleButton {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  /* Reverted to normal size */
+  height: 70px;
   border-radius: 50%;
-  background-color: var(--ifm-color-primary);
-  color: white;
+  background: transparent;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  transition: transform 0.2s;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  padding: 0;
+  overflow: visible;
+  z-index: 1000;
 }
 
 .toggleButton:hover {
-  transform: scale(1.1);
+  transform: scale(1.1) translateY(-5px);
 }
+
+/* --- Tech Sphere Robot Animation --- */
+
+.techSphere {
+  position: relative;
+  width: 60px;
+  /* Reverted to normal size */
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #00c6ff, #0072ff);
+  box-shadow:
+    0 0 15px rgba(0, 198, 255, 0.6),
+    inset -5px -5px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: floatRobot 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Robot Face */
+.robotFace {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+  margin-top: 0;
+}
+
+.eyesContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.robotEye {
+  width: 8px;
+  height: 10px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 0 5px white;
+  animation: blink 4s infinite;
+}
+
+.robotMouth {
+  width: 14px;
+  height: 6px;
+  border-bottom: 2px solid white;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Rotating Rings */
+.robotRing {
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: #ff00cc;
+  border-bottom-color: #ff00cc;
+  animation: spinRing 4s linear infinite;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px #ff00cc);
+}
+
+.robotRingInner {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-left-color: #ff9966;
+  border-right-color: #ff9966;
+  animation: spinRingReverse 5s linear infinite;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 5px #ff9966);
+}
+
+/* Animations */
+@keyframes floatRobot {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  48%,
+  52%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes spinRing {
+  0% {
+    transform: rotate(0deg) rotateX(60deg);
+  }
+
+  100% {
+    transform: rotate(360deg) rotateX(60deg);
+  }
+}
+
+@keyframes spinRingReverse {
+  0% {
+    transform: rotate(0deg) rotateY(60deg);
+  }
+
+  100% {
+    transform: rotate(-360deg) rotateY(60deg);
+  }
+}
+
+/* --- Existing Chat Window Styles --- */
 
 .window {
   position: absolute;
-  bottom: 80px;
+  bottom: 90px;
   right: 0;
   width: 350px;
   height: 500px;
   background-color: var(--ifm-background-surface-color);
   border: 1px solid var(--ifm-color-emphasis-200);
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .header {
   padding: 16px;
-  background-color: var(--ifm-color-primary);
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
   color: white;
   font-weight: bold;
   display: flex;
@@ -57,6 +202,12 @@
   color: white;
   cursor: pointer;
   font-size: 20px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.closeButton:hover {
+  opacity: 1;
 }
 
 .messages {
@@ -77,10 +228,11 @@
 }
 
 .userMessage {
-  background-color: var(--ifm-color-primary-lightest);
-  color: var(--ifm-color-black);
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+  color: white;
   align-self: flex-end;
   border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0, 114, 255, 0.2);
 }
 
 .botMessage {
@@ -88,6 +240,7 @@
   color: var(--ifm-color-content);
   align-self: flex-start;
   border-bottom-left-radius: 4px;
+  border: 1px solid var(--ifm-color-emphasis-200);
 }
 
 .inputArea {
@@ -95,34 +248,44 @@
   border-top: 1px solid var(--ifm-color-emphasis-200);
   display: flex;
   gap: 8px;
+  background: var(--ifm-background-surface-color);
 }
 
 .input {
   flex: 1;
-  padding: 8px 12px;
+  padding: 10px 16px;
   border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 20px;
+  border-radius: 24px;
   outline: none;
   background: var(--ifm-background-color);
   color: var(--ifm-color-content);
+  transition: border-color 0.2s;
 }
 
 .input:focus {
-  border-color: var(--ifm-color-primary);
+  border-color: #0072ff;
+  box-shadow: 0 0 0 2px rgba(0, 114, 255, 0.1);
 }
 
 .sendButton {
-  background-color: var(--ifm-color-primary);
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
   color: white;
   border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 8px 20px;
+  border-radius: 24px;
   cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.sendButton:hover {
+  transform: scale(1.05);
 }
 
 .sendButton:disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  transform: none;
 }
 
 .sourceList {
@@ -138,6 +301,33 @@
   font-style: italic;
 }
 
+/* Tooltip Style */
+.tooltip {
+  position: absolute;
+  right: 80px;
+  /* Position to the left of the icon */
+  background: linear-gradient(90deg, #1a1a1a, #333);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.toggleButton:hover .tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* --- Text Selection Blip Styles (Restored) --- */
+
 .blipContainer {
   position: fixed;
   z-index: 2147483647;
@@ -145,7 +335,7 @@
   flex-direction: column;
   align-items: center;
   transform: translate(-50%, -100%);
-  animation: popInElastic 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy entrance */
+  animation: popInElastic 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   cursor: pointer;
   pointer-events: auto;
 }
@@ -154,69 +344,100 @@
   transform: scale(1.1) rotate(10deg);
 }
 
-/* The main Circle Button */
 .blip {
   position: relative;
-  width: 80px; /* Massive size */
-  height: 80px;
+  width: 90px;
+  /* Massive size */
+  height: 90px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--ifm-color-primary-light) 0%, var(--ifm-color-primary-dark) 100%); /* 3D Gradient */
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
   color: white;
-  border: 3px solid white;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 4px solid white;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 40px; /* Bigger icon */
-  margin-bottom: 8px;
+  font-size: 45px;
+  /* Bigger emoji */
+  margin-bottom: 12px;
   transition: transform 0.3s ease;
-  animation: float 3s ease-in-out infinite;
+  animation: floatBlip 3s ease-in-out infinite;
 }
 
-/* Pulse/Ripple Effect behind the blip */
 .blip::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   border-radius: 50%;
-  border: 2px solid var(--ifm-color-primary);
+  border: 3px solid #00c6ff;
   animation: ripple 1.5s infinite;
   z-index: -1;
 }
 
-/* The "Ask AI" Label */
 .blipLabel {
   background: linear-gradient(90deg, #1a1a1a, #333);
   color: #fff;
-  padding: 6px 14px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 700;
+  padding: 8px 20px;
+  /* Bigger label */
+  border-radius: 24px;
+  font-size: 16px;
+  /* Bigger text */
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.2);
-  animation: fadeIn 0.4s ease 0.2s backwards; /* Delay label slightly */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: fadeIn 0.4s ease 0.2s backwards;
 }
 
-/* Animations */
 @keyframes popInElastic {
-  0% { opacity: 0; transform: translate(-50%, -50%) scale(0); }
-  100% { opacity: 1; transform: translate(-50%, -100%) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
 }
 
 @keyframes ripple {
-  0% { transform: scale(1); opacity: 0.8; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+@keyframes floatBlip {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
