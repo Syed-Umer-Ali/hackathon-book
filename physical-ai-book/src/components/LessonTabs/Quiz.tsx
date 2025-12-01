@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 interface Option {
   id: string;
@@ -22,6 +23,16 @@ interface QuizProps {
 }
 
 export default function Quiz({ slug }: QuizProps) {
+  const { siteConfig } = useDocusaurusContext();
+  
+  // Dynamic API URL Construction
+  let baseUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
+  if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+    baseUrl = `https://${baseUrl}`;
+  }
+  const cleanBaseUrl = baseUrl.replace(/\/$/, '');
+  const apiUrl = `${cleanBaseUrl}/api/features/quiz`;
+
   const [data, setData] = useState<QuizData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +47,6 @@ export default function Quiz({ slug }: QuizProps) {
       setLoading(true);
       setError(null);
       try {
-        const apiUrl = 'http://localhost:8000/api/features/quiz';
         const response = await fetch(`${apiUrl}?slug=${encodeURIComponent(slug)}`);
         
         if (!response.ok) {
@@ -52,7 +62,7 @@ export default function Quiz({ slug }: QuizProps) {
       }
     };
     fetchQuiz();
-  }, [slug]);
+  }, [slug, apiUrl]);
 
   const handleOptionSelect = (questionId: number, optionId: string) => {
     // Only allow selection if not already answered or if we want to allow changing before submitting?

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Markdown from 'react-markdown';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 interface TranslationData {
   translated_markdown: string;
@@ -24,6 +25,16 @@ const LANGUAGES = [
 ];
 
 export default function Translator({ slug }: TranslatorProps) {
+  const { siteConfig } = useDocusaurusContext();
+  
+  // Dynamic API URL Construction
+  let baseUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
+  if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+    baseUrl = `https://${baseUrl}`;
+  }
+  const cleanBaseUrl = baseUrl.replace(/\/$/, '');
+  const apiUrl = `${cleanBaseUrl}/api/features/translate`;
+
   const [targetLang, setTargetLang] = useState<string>('roman_urdu');
   const [data, setData] = useState<TranslationData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
@@ -34,7 +45,6 @@ export default function Translator({ slug }: TranslatorProps) {
     setError(null);
     
     try {
-        const apiUrl = 'http://localhost:8000/api/features/translate';
         const response = await fetch(`${apiUrl}?slug=${encodeURIComponent(slug)}&target_language=${targetLang}`);
         
         if (!response.ok) {

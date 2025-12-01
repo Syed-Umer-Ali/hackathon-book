@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 // Define the Summary interface matching the API response
 interface SummaryData {
@@ -12,6 +13,16 @@ interface SummaryTabProps {
 }
 
 export default function SummaryTab({ slug }: SummaryTabProps) {
+  const { siteConfig } = useDocusaurusContext();
+  
+  // Dynamic API URL Construction
+  let baseUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
+  if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+    baseUrl = `https://${baseUrl}`;
+  }
+  const cleanBaseUrl = baseUrl.replace(/\/$/, '');
+  const apiUrl = `${cleanBaseUrl}/api/features/summary`;
+
   const [data, setData] = useState<SummaryData | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,9 +39,6 @@ export default function SummaryTab({ slug }: SummaryTabProps) {
       setError(null);
       
       try {
-        // In development, this points to localhost:8000.
-        // In production, this should point to the deployed backend URL.
-        const apiUrl = 'http://localhost:8000/api/features/summary'; 
         const response = await fetch(`${apiUrl}?slug=${encodeURIComponent(slug)}`);
         
         if (!response.ok) {
@@ -47,7 +55,7 @@ export default function SummaryTab({ slug }: SummaryTabProps) {
     };
 
     fetchSummary();
-  }, [slug]);
+  }, [slug, apiUrl]);
 
   if (loading) {
     return (
