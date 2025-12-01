@@ -7,7 +7,14 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function Chatbot() {
   const { siteConfig } = useDocusaurusContext();
-  const baseUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
+  
+  let baseUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
+  
+  // Ensure protocol exists to avoid relative path interpretation
+  if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+    baseUrl = `https://${baseUrl}`;
+  }
+  
   // Remove trailing slash if present
   const cleanBaseUrl = baseUrl.replace(/\/$/, '');
   
